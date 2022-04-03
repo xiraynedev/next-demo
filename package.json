@@ -1,16 +1,14 @@
 {
   "name": "next-demo",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A demo project using Next.js.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
-  "keywords": [],
-  "author": "",
+  "author": "Raymond Cortes",
   "license": "ISC",
   "dependencies": {
     "next": "^12.1.0",
