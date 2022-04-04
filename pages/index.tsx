@@ -1,13 +1,36 @@
 import Head from 'next/head';
+import {FC} from 'react';
 
-const HomePage = ({data}: any) => {
+interface HomeProps {
+  data: {
+    birth_year: string;
+    created: string;
+    edited: string;
+    eye_color: string;
+    films: string[];
+    gender: string;
+    hair_color: string;
+    height: string;
+    homeworld: string;
+    mass: string;
+    name: string;
+    skin_color: string;
+    species: [];
+    starships: string[];
+    url: string;
+    vehicles: string[];
+  }
+}
+
+const HomePage: FC<HomeProps> = (props) => {
+  const name = props.data.name;
 
   return (
       <div className='flex justify-center mt-8'>
         <Head>
           <link rel="icon" href="/favicon.ico"/>
         </Head>
-        <h1 className='text-3xl text-blue-800'>Welcome back, {data.name}!</h1>
+        <h1 className='text-3xl text-blue-800'>Welcome back, {name}!</h1>
       </div>
   )
 }
@@ -21,7 +44,7 @@ export const getStaticProps = async () => {
 
   return {
     props: {
-      data
+      data,
     },
     revalidate: 30,
   };
