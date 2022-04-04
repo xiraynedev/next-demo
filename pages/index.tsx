@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import {FC} from 'react';
+import {FC, useState, useEffect} from 'react';
 import {useSession} from 'next-auth/react';
 
 interface HomeProps {
@@ -24,8 +24,16 @@ interface HomeProps {
 }
 
 const HomePage: FC<HomeProps> = (props) => {
-  const name = props.data.name;
   const {data: session, status} = useSession();
+  const [user, setUser] = useState(props.data.name);
+
+  useEffect(() => {
+    if (!localStorage.getItem('user')) {
+      localStorage.setItem('user', user);
+    } else {
+      localStorage.setItem('user', user);
+    }
+  }, [user]);
 
   return (
       <div className='flex justify-center mt-8'>
@@ -34,7 +42,7 @@ const HomePage: FC<HomeProps> = (props) => {
         </Head>
         <h1 className='text-3xl text-blue-800'>
           {
-            session ? `Welcome back, ${name}!` : 'Sign in to be properly greeted.'
+            session ? `Welcome back, ${user}!` : 'Sign in to be properly greeted.'
           }
         </h1>
       </div>
