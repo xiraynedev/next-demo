@@ -19,7 +19,7 @@ const Index: FC = () => {
   }
 
   return (
-    <div>
+    <div className='flex flex-col m-4'>
       <h1 className='text-3xl text-green-500'>Dashboard page</h1>
     </div>
   )

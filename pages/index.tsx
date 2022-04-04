@@ -36,7 +36,7 @@ const HomePage: FC<HomeProps> = (props) => {
   }, [user]);
 
   return (
-      <div className='flex justify-center mt-8'>
+      <div className='flex my-6 ml-6'>
         <Head>
           <link rel="icon" href="/favicon.ico"/>
         </Head>

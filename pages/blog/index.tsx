@@ -8,7 +8,7 @@ interface BlogProps {
 
 const Blog: FC<BlogProps> = ({data}) => {
   return (
-    <div className='flex flex-col gap-5'>
+    <div className='flex flex-col gap-5 m-4'>
       <h1 className='text-3xl text-green-500'>Blog page</h1>
       <h2 className='text-2xl text-green-800'>{data}</h2>
     </div>
