@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import {FC} from 'react';
+import {useSession} from 'next-auth/react';
 
 interface HomeProps {
   data: {
@@ -24,13 +25,18 @@ interface HomeProps {
 
 const HomePage: FC<HomeProps> = (props) => {
   const name = props.data.name;
+  const {data: session, status} = useSession();
 
   return (
       <div className='flex justify-center mt-8'>
         <Head>
           <link rel="icon" href="/favicon.ico"/>
         </Head>
-        <h1 className='text-3xl text-blue-800'>Welcome back, {name}!</h1>
+        <h1 className='text-3xl text-blue-800'>
+          {
+            session ? `Welcome back, ${name}!` : 'Sign in to be properly greeted.'
+          }
+        </h1>
       </div>
   )
 }
