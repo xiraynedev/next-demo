@@ -6,7 +6,7 @@ import {signIn, signOut, useSession} from 'next-auth/react';
 export const Navbar: FC = () => {
   const router = useRouter();
   const {data: session} = useSession();
-  const [showMenu, setShowMenu] = useState(false);
+  const [showMenu, setShowMenu] = useState<boolean>();
 
   const handleShowMenu = () => {
     setShowMenu(true);
@@ -14,7 +14,7 @@ export const Navbar: FC = () => {
 
   const handleCloseMenu = () => {
     setShowMenu(false);
-  }
+  };
 
   return (
     <nav className="p-6 shadow-lg flex items-center justify-between mb-4">
@@ -28,11 +28,12 @@ export const Navbar: FC = () => {
           onClick={handleShowMenu}
           className="text-2xl md:hidden">Menu
         </button>
-        <div className={`${showMenu && 'translate-x-0'} transition duration-300 translate-x-full md:translate-x-0 absolute border md:static flex flex-col md:flex-row md:border-0
+        <div className={`${showMenu ? 'translate-x-0' : 'translate-x-full'} transition duration-300 md:translate-x-0 absolute border md:static flex flex-col md:flex-row md:border-0
         top-0 right-0 p-8 w-7/12 md:w-full h-screen md:h-fit gap-5 bg-white`}>
           <button
-          onClick={handleCloseMenu}
-            className='absolute right-8 top-2 text-2xl md:hidden'>X</button>
+            onClick={handleCloseMenu}
+            className="absolute right-8 top-2 text-2xl md:hidden">X
+          </button>
           <Link href="/">
             <a className="hover:text-blue-300">HOME</a>
           </Link>

@@ -1,14 +1,16 @@
 import {FC, useState, useEffect} from 'react';
-import {getSession, signIn} from 'next-auth/react';
+import {getSession} from 'next-auth/react';
+import {useRouter} from 'next/router';
 
-const Index: FC = () => {
+const Dashboard: FC = () => {
 
+  const router = useRouter();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     (async () => {
       if (!await getSession()) {
-        signIn();
+        router.push('/');
       }
       setLoading(false);
     })();
@@ -25,4 +27,4 @@ const Index: FC = () => {
   )
 }
 
-export default Index;
+export default Dashboard;
