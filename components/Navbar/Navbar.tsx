@@ -1,8 +1,10 @@
 import Link from 'next/link';
 import {FC} from 'react';
+import {useRouter} from 'next/router';
 import {signIn, signOut, useSession} from 'next-auth/react';
 
 export const Navbar: FC = () => {
+  const router = useRouter();
   const {data: session} = useSession();
 
   return (
@@ -16,9 +18,12 @@ export const Navbar: FC = () => {
         <Link href="/">
           <a className="hover:text-blue-300">HOME</a>
         </Link>
-        <Link href="/dashboard">
-          <a className="hover:text-blue-300">DASHBOARD</a>
-        </Link>
+        {
+          session &&
+          <Link href="/dashboard">
+            <a className="hover:text-blue-300">DASHBOARD</a>
+          </Link>
+        }
         <Link href="/blog">
           <a className="hover:text-blue-300">BLOG</a>
         </Link>
@@ -27,9 +32,12 @@ export const Navbar: FC = () => {
             className='hover:text-blue-300'
             onClick={event => {
               event.preventDefault();
-              !session
-                ? signIn('github')
-                : signOut();
+              if (!session) {
+                signIn('github');
+              } else {
+                router.push('/');
+                signOut();
+              }
             }}
           >{!session ? 'SIGN IN' : 'SIGN OUT'}</a>
         </Link>
