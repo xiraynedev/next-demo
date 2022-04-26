@@ -1,6 +1,7 @@
 import Head from 'next/head';
-import {FC, useState, useEffect} from 'react';
-import {useSession} from 'next-auth/react';
+import { FC } from 'react';
+import { useSession } from 'next-auth/react';
+import { GetStaticProps } from 'next';
 
 interface HomeProps {
   data: {
@@ -20,39 +21,29 @@ interface HomeProps {
     starships: string[];
     url: string;
     vehicles: string[];
-  }
+  };
 }
 
-const HomePage: FC<HomeProps> = (props) => {
-  const {data: session, status} = useSession();
-  const [user, setUser] = useState(props.data.name);
-
-  useEffect(() => {
-    if (!localStorage.getItem('user')) {
-      localStorage.setItem('user', user);
-    } else {
-      localStorage.setItem('user', user);
-    }
-  }, [user]);
+const HomePage: FC<HomeProps> = props => {
+  const { data: session, status } = useSession();
 
   return (
-      <div className='flex my-6 ml-6'>
-        <Head>
-          <link rel="icon" href="/favicon.ico"/>
-        </Head>
-        <h1 className='text-3xl text-blue-800'>
-          {
-            session ? `Welcome back, ${user}!` : 'Sign in to be properly greeted.'
-          }
-        </h1>
-      </div>
-  )
-}
+    <div className='flex my-6 ml-6'>
+      <Head>
+        <link rel='icon' href='/favicon.ico' />
+      </Head>
+      <h1 className='text-3xl text-blue-800'>
+        {session
+          ? `Welcome back, ${props.data.name}!`
+          : 'Sign in to be properly greeted.'}
+      </h1>
+    </div>
+  );
+};
 
 export default HomePage;
 
-export const getStaticProps = async () => {
-
+export const getStaticProps: GetStaticProps = async () => {
   const response = await fetch('https://swapi.dev/api/people/1');
   const data = await response.json();
 
@@ -60,6 +51,5 @@ export const getStaticProps = async () => {
     props: {
       data,
     },
-    revalidate: 30,
   };
 };
